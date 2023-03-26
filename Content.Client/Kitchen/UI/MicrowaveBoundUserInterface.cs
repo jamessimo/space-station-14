@@ -76,11 +76,13 @@ namespace Content.Client.Kitchen.UI
 
             var currentlySelectedTimeButton = (Button) _menu.CookTimeButtonVbox.GetChild(cState.ActiveButtonIndex);
             currentlySelectedTimeButton.Pressed = true;
-            var cookTime = cState.ActiveButtonIndex == 0
-                ? Loc.GetString("microwave-menu-instant-button")
-                : cState.CurrentCookTime.ToString();
+            var cookTime = cState.CurrentCookTime.ToString();
             _menu.CookTimeInfoLabel.Text = Loc.GetString("microwave-bound-user-interface-cook-time-label",
                                                          ("time", cookTime));
+
+            /*cState.ActiveButtonIndex == 0
+                ? Loc.GetString("microwave-menu-instant-button")
+            :*/
         }
 
         private void RefreshContentsDisplay(EntityUid[] containedSolids)
