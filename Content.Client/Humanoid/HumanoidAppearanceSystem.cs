@@ -126,7 +126,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     ///     This should not be used if the entity is owned by the server. The server will otherwise
     ///     override this with the appearance data it sends over.
     /// </remarks>
-    public void LoadProfile(EntityUid uid, HumanoidCharacterProfile profile, HumanoidAppearanceComponent? humanoid = null)
+    public override void LoadProfile(EntityUid uid, HumanoidCharacterProfile profile, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
         {
@@ -170,11 +170,11 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         var facialHair = new Marking(profile.Appearance.FacialHairStyleId,
             new[] { facialHairColor });
 
-        if (_markingManager.CanBeApplied(profile.Species, hair, _prototypeManager))
+        if (_markingManager.CanBeApplied(profile.Species, profile.Sex, hair, _prototypeManager))
         {
             markings.AddBack(MarkingCategories.Hair, hair);
         }
-        if (_markingManager.CanBeApplied(profile.Species, facialHair, _prototypeManager))
+        if (_markingManager.CanBeApplied(profile.Species, profile.Sex, facialHair, _prototypeManager))
         {
             markings.AddBack(MarkingCategories.FacialHair, facialHair);
         }
@@ -192,12 +192,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         }
 
         markings.EnsureSpecies(profile.Species, profile.Appearance.SkinColor, _markingManager, _prototypeManager);
+        markings.EnsureSexes(profile.Sex, _markingManager);
         markings.EnsureDefault(
             profile.Appearance.SkinColor,
             profile.Appearance.EyeColor,
             _markingManager);
 
-        DebugTools.Assert(uid.IsClientSide());
+        DebugTools.Assert(IsClientSide(uid));
 
         var state = new HumanoidAppearanceState(markings,
             new(),
@@ -303,7 +304,9 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
         for (var j = 0; j < markingPrototype.Sprites.Count; j++)
         {
-            if (markingPrototype.Sprites[j] is not SpriteSpecifier.Rsi rsi)
+            var markingSprite = markingPrototype.Sprites[j];
+
+            if (markingSprite is not SpriteSpecifier.Rsi rsi)
             {
                 continue;
             }
@@ -312,7 +315,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 
             if (!sprite.LayerMapTryGet(layerId, out _))
             {
-                var layer = sprite.AddLayer(markingPrototype.Sprites[j], targetLayer + j + 1);
+                var layer = sprite.AddLayer(markingSprite, targetLayer + j + 1);
                 sprite.LayerMapSet(layerId, layer);
                 sprite.LayerSetSprite(layerId, rsi);
             }
@@ -324,7 +327,10 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
                 continue;
             }
 
-            if (colors != null)
+            // Okay so if the marking prototype is modified but we load old marking data this may no longer be valid
+            // and we need to check the index is correct.
+            // So if that happens just default to white?
+            if (colors != null && j < colors.Count)
             {
                 sprite.LayerSetColor(layerId, colors[j]);
             }

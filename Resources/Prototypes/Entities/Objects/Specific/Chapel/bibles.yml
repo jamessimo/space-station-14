@@ -28,7 +28,6 @@
     - Holy
   - type: ItemCooldown
   - type: Sprite
-    netsync: false
     sprite: Objects/Specific/Chapel/bible.rsi
     state: icon
   - type: Item
@@ -72,7 +71,6 @@
     specialItem: SpawnPointGhostCerberus
     respawnTime: 300
   - type: Sprite
-    netsync: false
     sprite: Objects/Specific/Chapel/necronomicon.rsi
     state: icon
   - type: Item
@@ -81,3 +79,14 @@
   - type: Clothing
     slots:
     - Belt
+
+- type: entity
+  id: ActionBibleSummon
+  name: Summon familiar
+  description: Summon a familiar that will aid you and gain humanlike intelligence once inhabited by a soul.
+  noSpawn: true
+  components:
+  - type: InstantAction
+    icon: { sprite: Clothing/Head/Hats/witch.rsi, state: icon }
+    event: !type:SummonActionEvent
+    useDelay: 1

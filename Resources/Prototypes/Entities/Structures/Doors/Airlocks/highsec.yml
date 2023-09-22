@@ -8,7 +8,6 @@
   components:
   - type: InteractionOutline
   - type: Sprite
-    netsync: false
     sprite: Structures/Doors/Airlocks/highsec/highsec.rsi
     layers:
     - state: closed
@@ -56,9 +55,9 @@
     denySound:
       path: /Audio/Machines/airlock_deny.ogg
   - type: Weldable
-    fuel: 10
     time: 10
   - type: Airlock
+  - type: DoorBolt
   - type: Appearance
   - type: WiresVisuals
   - type: ApcPowerReceiver
@@ -68,8 +67,9 @@
     enabled: false
     usesApcPower: true
   - type: WiresPanel
+    securityLevel: Level5
   - type: Wires
-    BoardName: "HighSec Control"
+    BoardName: wires-board-name-highsec
     LayoutId: HighSec
     alwaysRandomize: true
   - type: UserInterface
@@ -93,3 +93,6 @@
   - type: IconSmooth
     key: walls
     mode: NoSprite
+  - type: Construction
+    graph: HighSecDoor
+    node: maxSecurity

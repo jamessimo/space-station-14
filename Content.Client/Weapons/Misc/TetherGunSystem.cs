@@ -64,16 +64,16 @@ public sealed class TetherGunSystem : SharedTetherGunSystem
         }
 
         var mousePos = _input.MouseScreenPosition;
-        var mouseWorldPos = _eyeManager.ScreenToMap(mousePos);
+        var mouseWorldPos = _eyeManager.PixelToMap(mousePos);
 
         if (mouseWorldPos.MapId == MapId.Nullspace)
             return;
 
         EntityCoordinates coords;
 
-        if (_mapManager.TryFindGridAt(mouseWorldPos, out var grid))
+        if (_mapManager.TryFindGridAt(mouseWorldPos, out var gridUid, out _))
         {
-            coords = EntityCoordinates.FromMap(grid.Owner, mouseWorldPos, TransformSystem);
+            coords = EntityCoordinates.FromMap(gridUid, mouseWorldPos, TransformSystem);
         }
         else
         {
@@ -91,7 +91,7 @@ public sealed class TetherGunSystem : SharedTetherGunSystem
 
         RaisePredictiveEvent(new RequestTetherMoveEvent()
         {
-            Coordinates = coords
+            Coordinates = GetNetCoordinates(coords)
         });
     }
 

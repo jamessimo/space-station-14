@@ -2,7 +2,7 @@
     <BoxContainer Orientation="Horizontal">
         <PanelContainer Name="Background"
                         Access="Public"
-                        StyleClasses="PDABackground"
+                        StyleClasses="PdaBackground"
                         VerticalExpand="False"
                         HorizontalExpand="False"
                         MaxWidth="10"
@@ -13,8 +13,7 @@
                 VerticalExpand="False"
                 StyleClasses="ButtonSquare"
                 Margin="0"
-                ToolTip="foobar"
-                TooltipDelay="0.25">
+                ToolTip="foobar">
             <BoxContainer Orientation="Horizontal" Margin="0">
                 <TextureRect Name="Texture"
                              HorizontalExpand="False"

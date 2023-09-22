@@ -363,6 +363,27 @@
     sprite: Objects/Consumable/Drinks/wineglass.rsi
     state: icon
 
+- type: reagent
+  id: Champagne
+  name: reagent-name-champagne
+  parent: BaseAlcohol
+  desc: reagent-desc-champagne
+  physicalDesc: reagent-physical-desc-strong-smelling
+  flavor: champagne
+  color: "#FCFCEE"
+  recognizable: true
+  metamorphicSprite:
+    sprite: Objects/Consumable/Drinks/champagneglass.rsi
+    state: icon
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 3
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: 0.3
+
 # Mixed Alcohol
 
 - type: reagent
@@ -546,18 +567,6 @@
         amount: 0.15
 
 - type: reagent
-  id: Bilk
-  name: reagent-name-bilk
-  parent: BaseDrink
-  desc: reagent-desc-bilk
-  physicalDesc: reagent-physical-desc-bilky
-  flavor: alcohol
-  color: "#895C4C"
-  metamorphicSprite:
-    sprite: Objects/Consumable/Drinks/glass_brown.rsi
-    state: icon
-
-- type: reagent
   id: BlackRussian
   name: reagent-name-black-russian
   parent: BaseAlcohol
@@ -639,7 +648,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: DemonsBlood
@@ -766,7 +775,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: GinTonic
@@ -786,7 +795,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: Goldschlager
@@ -1133,7 +1142,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: CogChamp
@@ -1319,7 +1328,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: WhiskeyCola
@@ -1339,7 +1348,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: WhiskeySoda
@@ -1359,7 +1368,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: WhiteRussian

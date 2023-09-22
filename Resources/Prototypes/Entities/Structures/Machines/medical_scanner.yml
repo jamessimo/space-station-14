@@ -13,7 +13,6 @@
     ports:
       - MedicalScannerReceiver
   - type: Sprite
-    netsync: false
     sprite: Structures/Machines/scanner.rsi
     snapCardinals: true
     layers:
@@ -79,7 +78,7 @@
     board: MedicalScannerMachineCircuitboard
   - type: WiresPanel
   - type: Wires
-    BoardName: "MedicalScanner"
+    BoardName: wires-board-name-medicalscanner
     LayoutId: MedicalScanner
   - type: Appearance
   - type: Climbable
@@ -88,3 +87,6 @@
   - type: EmptyOnMachineDeconstruct
     containers:
     - scanner-bodyContainer
+  - type: GuideHelp
+    guides:
+    - Cloning

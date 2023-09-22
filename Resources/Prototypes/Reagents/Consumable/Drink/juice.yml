@@ -23,26 +23,8 @@
   parent: BaseDrink
   desc: reagent-desc-juice-berry
   physicalDesc: reagent-physical-desc-sweet
-  flavor: juice
+  flavor: berry
   color: "#660099"
-
-- type: reagent
-  id: JuiceBerryPoison
-  name: reagent-name-juice-berry-poison
-  desc: reagent-desc-juice-berry-poison
-  physicalDesc: reagent-physical-desc-sickly
-  flavor: bitter
-  color: "#6600CC"
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-    Poison:
-      effects:
-      - !type:HealthChange
-        damage:
-          types:
-            Poison: 1
 
 - type: reagent
   id: JuiceCarrot
